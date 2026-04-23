@@ -1,0 +1,104 @@
+﻿@using LeveTaskSystem.Domain.Enums
+@model LeveTaskSystem.Web.Models.DashboardViewModel
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+@if (TempData["Success"] is not null)
+{
+    <div class="uk-alert-success" uk-alert>
+        @TempData["Success"]
+    </div>
+}
+
+<section class="page-card">
+    <div class="uk-flex uk-flex-between uk-flex-middle uk-margin-medium-bottom">
+        <div>
+            <h2 class="page-title">Tarefas</h2>
+            <p class="page-subtitle">Acompanhe atribuicoes, prazos e status da equipe.</p>
+        </div>
+        @if (Model.Role == UserRole.Manager)
+        {
+            <div class="section-actions">
+                <a asp-controller="Users" asp-action="Create" class="uk-button uk-button-default">Cadastrar usuario</a>
+                <a asp-controller="Tasks" asp-action="Create" class="uk-button uk-button-primary">Cadastrar tarefa</a>
+            </div>
+        }
+    </div>
+
+    @if (Model.Tasks.Count == 0)
+    {
+        <div class="uk-alert-primary" uk-alert>Nenhuma tarefa cadastrada ainda.</div>
+    }
+    else
+    {
+        <div class="table-wrap">
+            <table class="uk-table uk-table-divider uk-table-hover uk-table-middle uk-table-small">
+                <thead>
+                    <tr>
+                        <th>Mensagem</th>
+                        <th>Prazo</th>
+                        <th>Status</th>
+                        <th>Responsavel</th>
+                        <th>Gestor</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach (var task in Model.Tasks)
+                {
+                    <tr>
+                        <td>@task.Message</td>
+                        <td>@task.DueDate.ToString("dd/MM/yyyy")</td>
+                        <td>
+                            @if (task.Status == TaskProgressStatus.Pending)
+                            {
+                                <span class="status-badge pending">Pendente</span>
+                            }
+                            else
+                            {
+                                <span class="status-badge done">Concluida</span>
+                            }
+                        </td>
+                        <td style="min-width:12rem">
+                            <div class="person-chip">
+                                @if (!string.IsNullOrWhiteSpace(task.AssignedToPhotoPath))
+                                {
+                                    <img src="@task.AssignedToPhotoPath" alt="" class="person-avatar" />
+                                }
+                                else
+                                {
+                                    <div class="person-fallback">@(task.AssignedToName.Length > 0 ? char.ToUpperInvariant(task.AssignedToName[0]) : '?')</div>
+                                }
+                                <span>@task.AssignedToName</span>
+                            </div>
+                        </td>
+                        <td style="min-width:12rem">
+                            <div class="person-chip">
+                                @if (!string.IsNullOrWhiteSpace(task.CreatedByPhotoPath))
+                                {
+                                    <img src="@task.CreatedByPhotoPath" alt="" class="person-avatar" />
+                                }
+                                else
+                                {
+                                    <div class="person-fallback">@(task.CreatedByName.Length > 0 ? char.ToUpperInvariant(task.CreatedByName[0]) : '?')</div>
+                                }
+                                <span>@task.CreatedByName</span>
+                            </div>
+                        </td>
+                        <td>
+                            @if (Model.Role == UserRole.Subordinate && task.Status == TaskProgressStatus.Pending)
+                            {
+                                <form asp-controller="Tasks" asp-action="Complete" method="post">
+                                    <input type="hidden" name="taskId" value="@task.Id" />
+                                    <button type="submit" class="uk-button uk-button-secondary uk-button-small">Concluir</button>
+                                </form>
+                            }
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    }
+</section>

@@ -1,0 +1,57 @@
+@using LeveTaskSystem.Domain.Enums
+@model LeveTaskSystem.Web.Models.CreateUserViewModel
+@{
+    ViewData["Title"] = "Novo usuario";
+}
+
+<section class="page-card">
+    <h2 class="page-title">Cadastro de usuario</h2>
+    <p class="page-subtitle">Preencha os dados e envie uma foto para facilitar a identificacao do colaborador.</p>
+
+    <form method="post" enctype="multipart/form-data" class="uk-form-stacked uk-margin-top">
+        <div asp-validation-summary="All" class="uk-text-danger"></div>
+        <div class="uk-child-width-1-2@m" uk-grid>
+            <div>
+                <div class="uk-margin">
+                    <label asp-for="FullName" class="uk-form-label">Nome completo</label>
+                    <input asp-for="FullName" class="uk-input" />
+                </div>
+                <div class="uk-margin">
+                    <label asp-for="BirthDate" class="uk-form-label">Data de nascimento</label>
+                    <input asp-for="BirthDate" class="uk-input" />
+                </div>
+                <div class="uk-margin">
+                    <label asp-for="LandlinePhone" class="uk-form-label">Telefone fixo</label>
+                    <input asp-for="LandlinePhone" class="uk-input" />
+                </div>
+                <div class="uk-margin">
+                    <label asp-for="MobilePhone" class="uk-form-label">Telefone celular</label>
+                    <input asp-for="MobilePhone" class="uk-input" />
+                </div>
+            </div>
+            <div>
+                <div class="uk-margin">
+                    <label asp-for="Email" class="uk-form-label">E-mail</label>
+                    <input asp-for="Email" class="uk-input" />
+                </div>
+                <div class="uk-margin">
+                    <label asp-for="Address" class="uk-form-label">Endereco</label>
+                    <input asp-for="Address" class="uk-input" />
+                </div>
+                <div class="uk-margin">
+                    <label asp-for="Photo" class="uk-form-label">Foto</label>
+                    <input asp-for="Photo" type="file" accept="image/jpeg,image/png,image/gif,image/webp" class="uk-input" />
+                </div>
+                <div class="uk-margin">
+                    <label asp-for="Password" class="uk-form-label">Senha</label>
+                    <input asp-for="Password" class="uk-input" />
+                </div>
+                <div class="uk-margin">
+                    <label asp-for="Role" class="uk-form-label">Perfil</label>
+                    <select asp-for="Role" class="uk-select" asp-items="Html.GetEnumSelectList<UserRole>()"></select>
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="uk-button uk-button-primary">Salvar usuario</button>
+    </form>
+</section>

@@ -1,0 +1,26 @@
+@model LeveTaskSystem.Web.Models.CreateTaskViewModel
+@{
+    ViewData["Title"] = "Nova tarefa";
+}
+
+<section class="page-card">
+    <h2 class="page-title">Cadastro de tarefa</h2>
+    <p class="page-subtitle">Defina o responsavel, a mensagem e o prazo para execucao.</p>
+
+    <form method="post" class="uk-form-stacked uk-margin-top">
+        <div asp-validation-summary="All" class="uk-text-danger"></div>
+        <div class="uk-margin">
+            <label asp-for="AssignedToUserId" class="uk-form-label">Subordinado</label>
+            <select asp-for="AssignedToUserId" class="uk-select" asp-items="ViewBag.Subordinates"></select>
+        </div>
+        <div class="uk-margin">
+            <label asp-for="Message" class="uk-form-label">Mensagem</label>
+            <textarea asp-for="Message" class="uk-textarea" rows="4"></textarea>
+        </div>
+        <div class="uk-margin">
+            <label asp-for="DueDate" class="uk-form-label">Data limite</label>
+            <input asp-for="DueDate" class="uk-input" />
+        </div>
+        <button type="submit" class="uk-button uk-button-primary">Salvar tarefa</button>
+    </form>
+</section>

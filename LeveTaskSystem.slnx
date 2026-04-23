@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/LeveTaskSystem.Application/LeveTaskSystem.Application.csproj" />
+    <Project Path="src/LeveTaskSystem.Domain/LeveTaskSystem.Domain.csproj" />
+    <Project Path="src/LeveTaskSystem.Infrastructure/LeveTaskSystem.Infrastructure.csproj" />
+    <Project Path="src/LeveTaskSystem.Web/LeveTaskSystem.Web.csproj" />
+  </Folder>
+</Solution>
