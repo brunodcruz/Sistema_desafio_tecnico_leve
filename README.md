@@ -1,6 +1,6 @@
 # Leve Task System
 
-Sistema web em ASP.NET Core MVC com Razor, arquitetura em camadas com DDD, autenticacao por e-mail/senha, cadastro de usuários e agendamento de tarefas.
+Sistema web em ASP.NET Core MVC com Razor, arquitetura em camadas com DDD, autenticação por e-mail/senha, cadastro de usuários e agendamento de tarefas.
 
 ## Tecnologias
 
